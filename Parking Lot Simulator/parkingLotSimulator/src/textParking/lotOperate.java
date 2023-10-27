@@ -143,4 +143,31 @@ public class lotOperate {
         }
         System.out.println(sep);
     }
+    public void searchAccurate(String brand,String color){
+        boolean flag = false;
+        String tempString = "";
+        int temp;
+        for (int i = 0; i < this.arry.length; i++) {
+            for (int j = 0; j < this.arry[i].length; j++) {
+                temp = 0;
+                for (int i1 = 0; i1 < arry[i][j].length(); i1++) {
+                    if(arry[i][j].substring(i1,i1+1).equals("|")){
+                        tempString = arry[i][j].substring(0,i1);
+                        temp = i1+1;
+                    }
+                    if ((brand.equals(tempString))&&(arry[i][j].substring(temp,i1+1).equals(color))){
+                        flag = true;
+                        System.out.println(Integer.toString(i+1) + "," +Integer.toString(j+1));
+                    }
+                }
+            }
+        }
+        if (flag){
+            System.out.println("your brand car may be here");
+        }
+        else {
+            System.out.println("there is no such a car");
+        }
+        System.out.println(sep);
+    }
 }

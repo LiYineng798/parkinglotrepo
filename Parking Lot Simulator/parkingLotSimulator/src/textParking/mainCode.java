@@ -64,14 +64,21 @@ public class mainCode {
                         lot.display();
                     }
                     else if (temp.equals("2")){
-                        System.out.println("please input your car brand");
+                        System.out.println("please input your car's brand");
                         temp = String.valueOf(sc.nextLine());
                         lot.searchBrand(temp);
                     }
                     else if(temp.equals("3")){
-                        System.out.println("please input your car color");
+                        System.out.println("please input your car's color");
                         temp = sc.nextLine();
                         lot.searchColor(temp);
+                    }
+                    else if (temp.equals("4")){
+                        System.out.println("please input your car's brand");
+                        temp = sc.nextLine();
+                        System.out.println("please input your car's color");
+                        temp1 = sc.nextLine();
+                        lot.searchAccurate(temp,temp1);
                     }
 
                     else if(temp.equals("end")){
@@ -98,6 +105,7 @@ public class mainCode {
         System.out.println("1)to parking you car");
         System.out.println("2)to search your car by brand");
         System.out.println("3)to searck your car by color");
+        System.out.println("4)to search your car accurately");
         System.out.println("end)if you want to quit,please input'end'");
     }
 }
