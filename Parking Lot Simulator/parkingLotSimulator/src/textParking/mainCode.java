@@ -13,6 +13,7 @@ public class mainCode {
             String temp1 = "";
             int numtemp1 = 1;
             int numtemp2 = 1;
+            boolean flag;
 
             developerLogin list = new developerLogin();
             //lotOperate lot = new lotOperate();
@@ -51,17 +52,29 @@ public class mainCode {
                     temp = String.valueOf(sc.nextLine());
 
                     if (temp.equals("1")){
-                        System.out.println("you want to put your car in ?(please input like1,2):");
-                        temp1 = String.valueOf(sc.nextLine());
-                        numtemp1 = Integer.parseInt(temp1.substring(0, 1))-1;
-                        numtemp2 = Integer.parseInt(temp1.substring(2, 3))-1;
-                        System.out.println("what is the brand of your car?");
-                        temp1 = String.valueOf(sc.nextLine());
-                        lot.parking(numtemp1,numtemp2,temp1);
-                        System.out.println("what is the color of your car?");
-                        temp1 = String.valueOf(sc.nextLine());
-                        lot.addInf(numtemp1,numtemp2,temp1);
-                        lot.display();
+                        flag = true;
+                        while (flag){
+                            System.out.println("you want to put your car in ?(please input like1,2):");
+                            temp1 = String.valueOf(sc.nextLine());
+                            if (checkPosForm(temp1)){
+                                numtemp1 = Integer.parseInt(temp1.substring(0, 1))-1;
+                                numtemp2 = Integer.parseInt(temp1.substring(2, 3))-1;
+                                if(lot.checkEmpty(numtemp1,numtemp2)){
+                                    System.out.println("this position has been parked");
+                                    System.out.println("please try another");
+                                }
+                                else{
+                                    flag = false;
+                                    System.out.println("what is the brand of your car?");
+                                    temp1 = String.valueOf(sc.nextLine());
+                                    lot.parking(numtemp1,numtemp2,temp1);
+                                    System.out.println("what is the color of your car?");
+                                    temp1 = String.valueOf(sc.nextLine());
+                                    lot.addInf(numtemp1,numtemp2,temp1);
+                                    lot.display();
+                                }
+                            }
+                        }
                     }
                     else if (temp.equals("2")){
                         System.out.println("please input your car's brand");
@@ -107,5 +120,25 @@ public class mainCode {
         System.out.println("3)to searck your car by color");
         System.out.println("4)to search your car accurately");
         System.out.println("end)if you want to quit,please input'end'");
+    }
+    public static boolean checkPosForm(String pos){
+        char [] chars = pos.toCharArray();
+        int count = 0;
+        int temp = 57;
+        for (int i = 0; i < chars.length; i++) {
+            temp = (int)chars[i];
+            if (chars[i] == ','){
+                count ++;
+            }
+            else if (!((temp>=49)&&(temp <= 57))){
+                System.out.println("wrong format,please try again!");
+                return false;
+            }
+        }
+        if (count!=1){
+            System.out.println("wrong format,please try again!");
+            return false;
+        }
+        return true;
     }
 }

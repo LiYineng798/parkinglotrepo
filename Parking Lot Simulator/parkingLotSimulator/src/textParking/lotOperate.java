@@ -170,4 +170,10 @@ public class lotOperate {
         }
         System.out.println(sep);
     }
+    public boolean checkEmpty(int x,int y) {
+        if(arry[x][y].equals("[]")){
+            return false;
+        }
+        else{return true;}
+    }
 }
