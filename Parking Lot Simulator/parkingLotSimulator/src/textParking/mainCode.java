@@ -49,6 +49,7 @@ public class mainCode {
                 }//如果没有管理员登录过，那么就初始化5*5
                 while (true) {
                     print();
+                    flag = true;
                     Scanner sc = new Scanner(System.in);
                     temp = String.valueOf(sc.nextLine());
 
@@ -104,6 +105,20 @@ public class mainCode {
                         temp2 = sc.nextLine();
                         lot.searchAccurate(temp,temp1,temp2);
                     }
+                    else if (temp.equals("6")){
+                        while(flag){
+                            System.out.println("where is your car like'1,2'");
+                            temp = sc.nextLine();
+                            if (checkPosForm(temp)){
+                                flag = false;
+                                numtemp1 = Integer.parseInt(temp.substring(0, 1))-1;
+                                numtemp2 = Integer.parseInt(temp.substring(2, 3))-1;
+                                lot.remove(numtemp1,numtemp2);
+                                lot.display();
+                                System.out.println("your car has been removed");
+                            }
+                        }
+                    }
 
                     else if(temp.equals("end")){
                         System.out.println("the project is end");
@@ -131,6 +146,7 @@ public class mainCode {
         System.out.println("3)to searck your car by color");
         System.out.println("4)to searck your car by number");
         System.out.println("5)to search your car accurately");
+        System.out.println("6)to remove your car");
         System.out.println("end)if you want to quit,please input'end'");
     }
     public static boolean checkPosForm(String pos){

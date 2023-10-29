@@ -215,4 +215,7 @@ public class lotOperate {
         }
         else{return true;}
     }
+    public void remove(int x,int y){
+        arry[x][y] = "[]";
+    }
 }
