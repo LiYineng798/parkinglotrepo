@@ -11,6 +11,7 @@ public class mainCode {
         while (true){
             String temp = "";    //初始化
             String temp1 = "";
+            String temp2 = "";
             int numtemp1 = 1;
             int numtemp2 = 1;
             boolean flag;
@@ -71,6 +72,9 @@ public class mainCode {
                                     System.out.println("what is the color of your car?");
                                     temp1 = String.valueOf(sc.nextLine());
                                     lot.addInf(numtemp1,numtemp2,temp1);
+                                    System.out.println("what is your car'number");
+                                    temp1 = String.valueOf(sc.nextLine());
+                                    lot.addInf(numtemp1,numtemp2,temp1);
                                     lot.display();
                                 }
                             }
@@ -86,12 +90,19 @@ public class mainCode {
                         temp = sc.nextLine();
                         lot.searchColor(temp);
                     }
-                    else if (temp.equals("4")){
+                    else if(temp.equals("4")){
+                        System.out.println("please input your car's number");
+                        temp = sc.nextLine();
+                        lot.searchNumber(temp);
+                    }
+                    else if (temp.equals("5")){
                         System.out.println("please input your car's brand");
                         temp = sc.nextLine();
                         System.out.println("please input your car's color");
                         temp1 = sc.nextLine();
-                        lot.searchAccurate(temp,temp1);
+                        System.out.println("please input your car's number");
+                        temp2 = sc.nextLine();
+                        lot.searchAccurate(temp,temp1,temp2);
                     }
 
                     else if(temp.equals("end")){
@@ -118,7 +129,8 @@ public class mainCode {
         System.out.println("1)to parking you car");
         System.out.println("2)to search your car by brand");
         System.out.println("3)to searck your car by color");
-        System.out.println("4)to search your car accurately");
+        System.out.println("4)to searck your car by number");
+        System.out.println("5)to search your car accurately");
         System.out.println("end)if you want to quit,please input'end'");
     }
     public static boolean checkPosForm(String pos){

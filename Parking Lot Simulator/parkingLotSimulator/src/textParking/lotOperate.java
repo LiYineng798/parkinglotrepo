@@ -73,9 +73,9 @@ public class lotOperate {
     public void setArry(int x,int y,String temp){//setup the 1
         //this.arry[x][y] = 1;
         this.arry[x][y] = temp;
-    }                                //这里的代码！！
+    }
 
-    public void parking(int posX,int posY,String brand){//这里的代码！！
+    public void parking(int posX,int posY,String brand){
         System.out.println("you park the car in the("+(posX+1)+","+(posY+1)+")");
         setArry(posX,posY,brand);
         //display();
@@ -83,6 +83,7 @@ public class lotOperate {
     public void addInf(int x,int y,String temp){
         this.arry[x][y] = this.arry[x][y] + "|" + temp;
     }
+
     public int getNum(){
         this.num =this.length*this.wide;
         for (int i = 0; i < this.arry.length; i++) {
@@ -143,19 +144,20 @@ public class lotOperate {
         }
         System.out.println(sep);
     }
-    public void searchAccurate(String brand,String color){
+
+    public void searchNumber(String number){
         boolean flag = false;
-        String tempString = "";
-        int temp;
+        int sum;
+        int temp = 0;
         for (int i = 0; i < this.arry.length; i++) {
             for (int j = 0; j < this.arry[i].length; j++) {
-                temp = 0;
+                sum = 0;
                 for (int i1 = 0; i1 < arry[i][j].length(); i1++) {
                     if(arry[i][j].substring(i1,i1+1).equals("|")){
-                        tempString = arry[i][j].substring(0,i1);
+                        sum ++;
                         temp = i1+1;
                     }
-                    if ((brand.equals(tempString))&&(arry[i][j].substring(temp,i1+1).equals(color))){
+                    else if ((sum == 2)&&(arry[i][j].substring(temp,i1+1).equals(number))){
                         flag = true;
                         System.out.println(Integer.toString(i+1) + "," +Integer.toString(j+1));
                     }
@@ -170,6 +172,43 @@ public class lotOperate {
         }
         System.out.println(sep);
     }
+
+    public void searchAccurate(String brand,String color,String number){
+        boolean flag = false;
+        boolean flagTime = true;
+        String tempBrand = "";
+        String tempColor = "";
+        int temp1;
+        int temp2;
+        for (int i = 0; i < this.arry.length; i++) {
+            for (int j = 0; j < this.arry[i].length; j++) {
+                temp1 = 0;
+                for (int i1 = 0; i1 < arry[i][j].length(); i1++) {
+                    if((flagTime)&& (arry[i][j].substring(i1,i1+1).equals("|") ) ){
+                        tempBrand = arry[i][j].substring(0,i1);
+                        temp1 = i1+1;
+                        flagTime = false;
+                    }
+                    else if ((!flagTime)&& (arry[i][j].substring(i1,i1+1).equals("|") ) ){
+                        tempColor = arry[i][j].substring(temp1,i1);
+                        temp2 = i1+1;
+                    }
+                    if( (tempBrand.equals(brand)) && (tempColor.equals(color)) && (arry[i][j].substring(i1,this.arry[i][j].length()).equals(number))){
+                        flag = true;
+                        System.out.println(Integer.toString(i+1) + "," +Integer.toString(j+1));
+                    }
+                }
+            }
+        }
+        if (flag){
+            System.out.println("your brand car may be here");
+        }
+        else {
+            System.out.println("there is no such a car");
+        }
+        System.out.println(sep);
+    }
+
     public boolean checkEmpty(int x,int y) {
         if(arry[x][y].equals("[]")){
             return false;
