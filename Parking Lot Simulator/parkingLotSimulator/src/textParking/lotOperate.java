@@ -41,6 +41,7 @@ public class lotOperate {
         }
         setup(temp1,temp2);
     }
+
     public void setup(int length,int wide){                     //just setup the lot by parameter
         this.length = length;
         this.wide = wide;

@@ -8,6 +8,7 @@ public class mainCode {
         boolean ifQuit = false;
         boolean hasSetup = false;
         lotOperate lot = new lotOperate();
+        userOperate user = new userOperate();//创建
         while (true){
             String temp = "";    //初始化
             String temp1 = "";
@@ -25,6 +26,7 @@ public class mainCode {
                     System.out.println("Login successful!");
                     if(hasSetup != true){
                         lot.setup();
+                        user.setup(lot.getLenth(),lot.getWide());
                         hasSetup = true;
                         System.out.println("finish setup!");
                     }
@@ -43,8 +45,9 @@ public class mainCode {
             else{
                 if (ifDeved){
                     lot.setup(5,5);
-                    lot.setLenth(5);
-                    lot.setWide(5);
+                    user.setup(lot.getLenth(),lot.getWide());
+                    //lot.setLenth(5);
+                    //lot.setWide(5);
                     hasSetup = true;
                 }//如果没有管理员登录过，那么就初始化5*5
                 while (true) {
@@ -55,6 +58,7 @@ public class mainCode {
 
                     if (temp.equals("1")){
                         flag = true;
+                        lot.display();
                         while (flag){
                             System.out.println("you want to put your car in ?(please input like1,2):");
                             temp1 = String.valueOf(sc.nextLine());
@@ -66,14 +70,24 @@ public class mainCode {
                                     System.out.println("please try another");
                                 }
                                 else{
+                                    System.out.println("first,please set your username and password");
+                                    System.out.println("it will be used when you move your car");
+                                    System.out.println("please create your username");
+                                    temp1 = String.valueOf(sc.nextLine());
+                                    user.putUsername(numtemp1,numtemp2,temp1);
+                                    System.out.println("please create your password");
+                                    temp1 = String.valueOf(sc.nextLine());
+                                    user.putPassword(numtemp1,numtemp2,temp1);
+
                                     flag = false;
+
                                     System.out.println("what is the brand of your car?");
                                     temp1 = String.valueOf(sc.nextLine());
                                     lot.parking(numtemp1,numtemp2,temp1);
                                     System.out.println("what is the color of your car?");
                                     temp1 = String.valueOf(sc.nextLine());
                                     lot.addInf(numtemp1,numtemp2,temp1);
-                                    System.out.println("what is your car'number");
+                                    System.out.println("what is your car's number");
                                     temp1 = String.valueOf(sc.nextLine());
                                     lot.addInf(numtemp1,numtemp2,temp1);
                                     lot.display();
@@ -106,17 +120,22 @@ public class mainCode {
                         lot.searchAccurate(temp,temp1,temp2);
                     }
                     else if (temp.equals("6")){
-                        while(flag){
-                            System.out.println("where is your car like'1,2'");
-                            temp = sc.nextLine();
-                            if (checkPosForm(temp)){
-                                flag = false;
-                                numtemp1 = Integer.parseInt(temp.substring(0, 1))-1;
-                                numtemp2 = Integer.parseInt(temp.substring(2, 3))-1;
-                                lot.remove(numtemp1,numtemp2);
+                        System.out.println("please input your username");
+                        temp1 = sc.nextLine();
+                        System.out.println("please input your password");
+                        temp2 = sc.nextLine();
+                        if (user.checkName(temp1)){
+                            if (user.checkPassword(temp2)){
+                                lot.remove(user.getTempX(), user.getTempY());
                                 lot.display();
                                 System.out.println("your car has been removed");
                             }
+                            else {
+                                System.out.println("wrong password!!");
+                            }
+                        }
+                        else {
+                            System.out.println("there is no such a user!!");
                         }
                     }
 
