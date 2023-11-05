@@ -74,6 +74,11 @@ public class mainCode {
                                     System.out.println("it will be used when you move your car");
                                     System.out.println("please create your username");
                                     temp1 = String.valueOf(sc.nextLine());
+                                    while (!user.checkReusedName(temp1)){
+                                        System.out.println("that username has been used");
+                                        System.out.println("please try again");
+                                        temp1 = String.valueOf(sc.nextLine());
+                                    }
                                     user.putUsername(numtemp1,numtemp2,temp1);
                                     System.out.println("please create your password");
                                     temp1 = String.valueOf(sc.nextLine());
@@ -152,6 +157,10 @@ public class mainCode {
             Scanner sc = new Scanner(System.in);
             System.out.println("if you want to quit all?(yes or no)");
             temp = sc.nextLine();
+            while (temp != "yes" && temp != "no"){
+                System.out.println("there is no such a operation,please try it again!");
+                temp = sc.nextLine();
+            }
             if(temp.equals("yes")){ifQuit = true;}
             if(ifQuit){
                 break;

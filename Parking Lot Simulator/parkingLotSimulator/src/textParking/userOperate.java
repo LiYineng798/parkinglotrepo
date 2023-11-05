@@ -50,4 +50,15 @@ public class userOperate {
         }
         return false;
     }
+
+    public boolean checkReusedName(String name){
+        for (int i = 0; i < this.username.length; i++) {
+            for (int j = 0; j < this.username[i].length; j++) {
+                if (this.username[i][j].equals(name)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
