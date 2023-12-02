@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 public class text {
     public static void main(String[] args) {
-        char a = '9';
-        int b = (int)a;
-        System.out.println(b);
+        System.out.println(101237891/1000);
     }
 
 }

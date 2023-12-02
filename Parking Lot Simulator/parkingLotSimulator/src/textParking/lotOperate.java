@@ -8,6 +8,7 @@ public class lotOperate {
     private int wide;
     private String [][]arry;
     private int num;
+    private long income = 0;
     String sep = "__________________________________";
     public void setup(){                //setup the lot by feedback
         boolean flag = true;
@@ -216,7 +217,13 @@ public class lotOperate {
         }
         else{return true;}
     }
+
     public void remove(int x,int y){
         arry[x][y] = "[]";
     }
+
+    public void addIncome(long fee){
+        income+=fee;
+    }
+    public long getIncome(){return this.income;}
 }

@@ -1,5 +1,7 @@
 package textParking;
 
+import com.sun.source.tree.WhileLoopTree;
+
 import java.util.Scanner;
 
 public class mainCode {
@@ -7,8 +9,14 @@ public class mainCode {
         boolean ifDeved = true;
         boolean ifQuit = false;
         boolean hasSetup = false;
+
+        long initialTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();//打上时间戳
+
         lotOperate lot = new lotOperate();
         userOperate user = new userOperate();//创建
+        ParkingTime time = new ParkingTime();
+
         while (true){
             String temp = "";    //初始化
             String temp1 = "";
@@ -25,17 +33,28 @@ public class mainCode {
                     ifDeved = false;
                     System.out.println("Login successful!");
                     if(hasSetup != true){
-                        lot.setup();
-                        user.setup(lot.getLenth(),lot.getWide());
+                        lot.setup();//停车场初始化
+                        user.setup(lot.getLenth(),lot.getWide());//创建用户数据库
+                        time.setup(lot.getLenth(),lot.getWide());//创建时间库
                         hasSetup = true;
                         System.out.println("finish setup!");
                     }
                     Scanner sc = new Scanner(System.in);
-                    System.out.println("1)output the car in lot");
-                    temp = sc.nextLine();
-                    if(temp.equals("1")){
-                        System.out.println(lot.getNum());
+                    while (true){
+                        developPrint();
+                        temp = sc.nextLine();
+                        if(temp.equals("1")){
+                            System.out.println(lot.getNum());
+                        }
+                        else if (temp.equals("2")){
+                            System.out.println(lot.getIncome());
+                        }
+
+                        else if (temp.equals("end")){
+                            break;
+                        }
                     }
+
                 }
                 else {
                     System.out.println("wrong!"+"the system is going to close");
@@ -46,12 +65,13 @@ public class mainCode {
                 if (ifDeved){
                     lot.setup(5,5);
                     user.setup(lot.getLenth(),lot.getWide());
+                    time.setup(lot.getLenth(),lot.getWide());
                     //lot.setLenth(5);
                     //lot.setWide(5);
                     hasSetup = true;
                 }//如果没有管理员登录过，那么就初始化5*5
                 while (true) {
-                    print();
+                    userPrint();
                     flag = true;
                     Scanner sc = new Scanner(System.in);
                     temp = String.valueOf(sc.nextLine());
@@ -70,6 +90,7 @@ public class mainCode {
                                     System.out.println("please try another");
                                 }
                                 else{
+                                    time.setTime(numtemp1,numtemp2);
                                     System.out.println("first,please set your username and password");
                                     System.out.println("it will be used when you move your car");
                                     System.out.println("please create your username");
@@ -132,6 +153,8 @@ public class mainCode {
                         if (user.checkName(temp1)){
                             if (user.checkPassword(temp2)){
                                 lot.remove(user.getTempX(), user.getTempY());
+                                time.charge(user.getTempX(), user.getTempY());
+                                lot.addIncome(time.getMoney());
                                 lot.display();
                                 System.out.println("your car has been removed");
                             }
@@ -154,12 +177,12 @@ public class mainCode {
                     }
                 }
             }
-            Scanner sc = new Scanner(System.in);
+            Scanner sc1 = new Scanner(System.in);
             System.out.println("if you want to quit all?(yes or no)");
-            temp = sc.nextLine();
-            while (temp != "yes" && temp != "no"){
+            temp = sc1.nextLine();
+            while (!temp.equals("yes") && !temp.equals("no")){
                 System.out.println("there is no such a operation,please try it again!");
-                temp = sc.nextLine();
+                temp = sc1.nextLine();
             }
             if(temp.equals("yes")){ifQuit = true;}
             if(ifQuit){
@@ -168,13 +191,18 @@ public class mainCode {
         }
 
     }
-    public static void print(){
+    public static void userPrint(){
         System.out.println("1)to parking you car");
         System.out.println("2)to search your car by brand");
         System.out.println("3)to searck your car by color");
         System.out.println("4)to searck your car by number");
         System.out.println("5)to search your car accurately");
         System.out.println("6)to remove your car");
+        System.out.println("end)if you want to quit,please input'end'");
+    }
+    public static void developPrint(){
+        System.out.println("1)output how many cars are there in lot");
+        System.out.println("2)output total incomes");
         System.out.println("end)if you want to quit,please input'end'");
     }
     public static boolean checkPosForm(String pos){
@@ -196,5 +224,5 @@ public class mainCode {
             return false;
         }
         return true;
-    }
+    }//
 }
