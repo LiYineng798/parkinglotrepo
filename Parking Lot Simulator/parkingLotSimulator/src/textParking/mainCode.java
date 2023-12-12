@@ -10,8 +10,8 @@ public class mainCode {
         boolean ifQuit = false;
         boolean hasSetup = false;
 
-        long initialTime = System.currentTimeMillis();
-        long currentTime = System.currentTimeMillis();//打上时间戳
+        //long initialTime = System.currentTimeMillis();
+        //long currentTime = System.currentTimeMillis();//打上时间戳
 
         lotOperate lot = new lotOperate();
         userOperate user = new userOperate();//创建
@@ -82,7 +82,7 @@ public class mainCode {
                         while (flag){
                             System.out.println("you want to put your car in ?(please input like1,2):");
                             temp1 = String.valueOf(sc.nextLine());
-                            if (checkPosForm(temp1)){
+                            if (checkPosForm(temp1, lot.getLenth(), lot.getWide())){
                                 numtemp1 = Integer.parseInt(temp1.substring(0, 1))-1;
                                 numtemp2 = Integer.parseInt(temp1.substring(2, 3))-1;
                                 if(lot.checkEmpty(numtemp1,numtemp2)){
@@ -205,7 +205,7 @@ public class mainCode {
         System.out.println("2)output total incomes");
         System.out.println("end)if you want to quit,please input'end'");
     }
-    public static boolean checkPosForm(String pos){
+    public static boolean checkPosForm(String pos,int x,int y){
         char [] chars = pos.toCharArray();
         int count = 0;
         int temp = 57;
@@ -213,6 +213,7 @@ public class mainCode {
             temp = (int)chars[i];
             if (chars[i] == ','){
                 count ++;
+                //获取该点的位置
             }
             else if (!((temp>=49)&&(temp <= 57))){
                 System.out.println("wrong format,please try again!");
@@ -222,6 +223,13 @@ public class mainCode {
         if (count!=1){
             System.out.println("wrong format,please try again!");
             return false;
+        }
+        if (count == 1){
+            String[] splitArray = pos.split(",", 2); // 使用逗号作为分隔符，并拆分成两个子字符串
+            if((int)splitArray[0].charAt(0)>x || (int)splitArray[0].charAt(1)>y){
+                System.out.println("that place is out of range,please try again!");
+                return false;
+            }
         }
         return true;
     }//
