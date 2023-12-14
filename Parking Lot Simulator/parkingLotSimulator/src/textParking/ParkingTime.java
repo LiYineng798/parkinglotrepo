@@ -1,5 +1,7 @@
 package textParking;
 
+import java.util.Scanner;
+
 public class ParkingTime {
     private long[][] timeArry;
     private long money;
@@ -46,10 +48,13 @@ public class ParkingTime {
 
     //根据时间收费
     public void charge(int i, int j) {
+        Scanner sc = new Scanner(System.in);
         long time;
         time = (System.currentTimeMillis() - timeArry[i][j]) / 1000;//进行做差并且取整1000
         money = time*2;
         System.out.println("your car has parked" + getTime(time) + ",you need to pay " + getPrice(time));
+        System.out.println("please Press Enter to continue...");
+        sc.nextLine();
     }
 
     //计算~分~秒
